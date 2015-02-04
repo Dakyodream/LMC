@@ -1,2 +1,2 @@
 # LMC
-Projet JAVA : Lecteur Multimédia Connecter
+Lecteur Media Connecté
