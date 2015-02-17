@@ -3,8 +3,8 @@ package BDD;
 import java.util.ArrayList;
 
 public class User extends SpiritOfBDD {
-	ArrayList<Integer> mListOfPref = new ArrayList<Integer>();
-	ArrayList<Integer> mListOfDir = new ArrayList<Integer>();
+	private ArrayList<Integer> mListOfPref = new ArrayList<Integer>();
+	private ArrayList<Integer> mListOfDir = new ArrayList<Integer>();
 	/*
 	 * Il y aura toujours une liste par def (pour toute les piste : ALL) et une
 	 * "préférence" par def (preg general : PREF), et un artiste par def
@@ -30,8 +30,8 @@ public class User extends SpiritOfBDD {
 		boolean bRet = false;
 
 		if (sNewPassword.length() < 6) { /* Test sur le nouveau password */
-			if (!(mbPasswordActivate == true) && (this.msPassword != this.AlgoPassword(sLastPassword))) {
-				this.msPassword = this.AlgoPassword(sNewPassword);
+			if (!(mbPasswordActivate == true) && (this.msPassword != this.ConvertPassword(sLastPassword))) {
+				this.msPassword = this.ConvertPassword(sNewPassword);
 				bRet = true;
 				mbPasswordActivate = true;
 			}
@@ -39,13 +39,18 @@ public class User extends SpiritOfBDD {
 
 		return bRet;
 	}
-
-	private String AlgoPassword(String sPassword) {
+	
+	private String ConvertPassword(String sPassword){
 		/*
 		 * Mettre ici un algo de conversion du password Ci dessous exemple
 		 * pourri
 		 */
-		return sPassword.toUpperCase(null);
+		return sPassword.toUpperCase();
+		
+	}
+
+	public String getPassword() {
+		return this.msPassword;
 	}
 
 	public boolean PasswordisActivate() {
@@ -70,5 +75,27 @@ public class User extends SpiritOfBDD {
 		this.ActivatePassword(sPassword);
 		this.setConfig(sAdrOfConfig);
 	}
+	
+	
+	public ArrayList<Integer> getUserPref() {
+		return this.mListOfPref;
+	}
+
+	public void setUserPref(ArrayList<Integer> ListOfPref) {
+		this.mListOfPref = ListOfPref;
+	}	
+
+	public ArrayList<Integer> getUserDir() {
+		return this.mListOfDir;
+	}
+
+	public void setUserDir(ArrayList<Integer> ListOfDir) {
+		this.mListOfDir = ListOfDir;
+	}	
+
+			
+			
+			
+			
 
 }

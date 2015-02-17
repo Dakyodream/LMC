@@ -11,6 +11,8 @@ public class BDD {
 	 * C'est dans cette classe que sera géré la sauvegarde de la bdd
 	 */
 
+	
+	
 	ArrayList<User> mListOfUser = new ArrayList<User>();
 	ArrayList<DirOfPlaylist> mListOfPref = new ArrayList<DirOfPlaylist>();
 	ArrayList<Integer> mListOfDir = new ArrayList<Integer>();
@@ -21,5 +23,18 @@ public class BDD {
 	 * Soit le fichier de conf des track est commun a tous, soit l'emplacement
 	 * est specifié dans le fichier de configuration de l'user
 	 */
+	
+	public BDD(){
+		
+		//init system 
+		
+	}
+	
+	
+	  
+	public void saveBDD(){
+		SaveOfBDD mySavBDD;
+		
+	}
 
 }
