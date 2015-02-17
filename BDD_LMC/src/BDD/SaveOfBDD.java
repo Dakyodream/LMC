@@ -5,7 +5,8 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class SaveOfBDD {
-	final String sAdrFileOfUser = "./Data/User";
+	final String msAdrFileOfUser = "User";
+	final String msAdrOfDirData = "Data";
 	
 	
 	public SaveOfBDD(){
@@ -18,16 +19,29 @@ public class SaveOfBDD {
 	ArrayList<Album> mListOfAlbum = new ArrayList<Album>();
 	ArrayList<Track> mListOfTrack = new ArrayList<Track>();
 	
-	
-	
 	public boolean savUser(ArrayList<User> ListOfUser){
 		boolean bRet = false;
 		boolean bTest = false;
 		String sSav;
-		File fileOfUserData = new File(sAdrFileOfUser);
+		
+		File fileOfDirData = new File(this.msAdrOfDirData);
+		File fileOfUserData = new File(this.msAdrOfDirData+"/"+this.msAdrFileOfUser);
+
+		//test de l'existnace du dossier
+		if(!fileOfDirData.exists()){
+			try{
+				fileOfDirData.mkdirs();
+			}catch(Exception e){
+				javax.swing.JOptionPane.showMessageDialog(null,
+						"Erreur de création du dossier " + this.msAdrOfDirData + " :"
+						+ e.toString(), "BDD LMC Error",  javax.swing.JOptionPane.ERROR_MESSAGE); 
+				System.exit(-1);
+			} 	
+		}
 		
 		try{
 			//création d'un nouveau fichier
+			//On recréera le fichier pour faire une MAJ
 			fileOfUserData.createNewFile();
 			
 			FileWriter fwMyFile = new FileWriter(fileOfUserData);
@@ -35,8 +49,8 @@ public class SaveOfBDD {
 			try{
 				for(User UserSave: ListOfUser){
 					sSav = "User:"+UserSave.getName()+"/*/"+"Key:"+UserSave.getKey()+"/*/";
-					sSav += "Config:"+UserSave.getConfig()+"/*/"+"PaswAct:"+UserSave.PasswordisActivate()+"/*/";
-					if(UserSave.PasswordisActivate() == true){
+					sSav += "Config:"+UserSave.getConfig()+"/*/"+"PaswAct:"+UserSave.PasswordIsActivate()+"/*/";
+					if(UserSave.PasswordIsActivate() == true){
 						sSav += "Passwrd:" + UserSave.getPassword() + "/*/";
 					}
 					
@@ -76,10 +90,10 @@ public class SaveOfBDD {
 		} catch(Exception e){
 			javax.swing.JOptionPane.showMessageDialog(null,
 					"Erreur de sauvegarde du profil user :" + e.toString(), "BDD LMC Error",  javax.swing.JOptionPane.ERROR_MESSAGE); 
+			System.exit(-1);
 		} 	
 		
 		return bRet;
-	}
-	
+	}	
 
 }

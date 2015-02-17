@@ -28,10 +28,12 @@ public class User extends SpiritOfBDD {
 
 	public boolean setPassword(String sLastPassword, String sNewPassword) {
 		boolean bRet = false;
+		if (sNewPassword.length() > 6) { /* Test sur le nouveau password */
+			/* Envoyer ici une exception */
 
-		if (sNewPassword.length() < 6) { /* Test sur le nouveau password */
-			if (!(mbPasswordActivate == true) && (this.msPassword != this.ConvertPassword(sLastPassword))) {
-				this.msPassword = this.ConvertPassword(sNewPassword);
+			if (((this.mbPasswordActivate == true) && (this.msPassword == sLastPassword))
+					|| ((this.mbPasswordActivate == false) && (sLastPassword == null))) {
+				this.msPassword = sNewPassword;
 				bRet = true;
 				mbPasswordActivate = true;
 			}
@@ -39,21 +41,21 @@ public class User extends SpiritOfBDD {
 
 		return bRet;
 	}
-	
-	private String ConvertPassword(String sPassword){
+
+	private String ConvertPassword(String sPassword) {
 		/*
 		 * Mettre ici un algo de conversion du password Ci dessous exemple
 		 * pourri
 		 */
 		return sPassword.toUpperCase();
-		
+
 	}
 
 	public String getPassword() {
 		return this.msPassword;
 	}
 
-	public boolean PasswordisActivate() {
+	public boolean PasswordIsActivate() {
 		return this.mbPasswordActivate;
 	}
 
@@ -75,15 +77,14 @@ public class User extends SpiritOfBDD {
 		this.ActivatePassword(sPassword);
 		this.setConfig(sAdrOfConfig);
 	}
-	
-	
+
 	public ArrayList<Integer> getUserPref() {
 		return this.mListOfPref;
 	}
 
 	public void setUserPref(ArrayList<Integer> ListOfPref) {
 		this.mListOfPref = ListOfPref;
-	}	
+	}
 
 	public ArrayList<Integer> getUserDir() {
 		return this.mListOfDir;
@@ -91,11 +92,6 @@ public class User extends SpiritOfBDD {
 
 	public void setUserDir(ArrayList<Integer> ListOfDir) {
 		this.mListOfDir = ListOfDir;
-	}	
-
-			
-			
-			
-			
+	}
 
 }
